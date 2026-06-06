@@ -37,7 +37,6 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.organization=hungles
             -Dsonar.projectKey=hungles_devsecops-proyect
 
   cd:
