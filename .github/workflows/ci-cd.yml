@@ -32,13 +32,12 @@ jobs:
           pytest --cov=app --cov-report=xml
 
       - name: SonarCloud Scan
-        uses: Sonarsource/sonarcloud-github-action@master
+        uses: SonarSource/sonarcloud-github-action@v1.12.0
+        with:
+          organization: hungles
+          projectKey: hungles_devsecops-proyect
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          args: >
-            -Dsonar.projectKey=hungles_devsecops-proyect
-            -Dsonar.organization=hungles
 
   cd:
     name: CD
