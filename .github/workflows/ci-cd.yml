@@ -31,18 +31,14 @@ jobs:
         run: |
           pytest --cov=app --cov-report=xml
 
-      - name: SonarQube analysis
-        uses: SonarSource/sonarqube-scan-action@v8.1.0
-        with:
-          projectBaseDir: .
-          args: |
-            -Dsonar.projectKey=devsecops-proyect
-            -Dsonar.sources=.
-            -Dsonar.tests=tests
-            -Dsonar.python.coverage.reportPaths=coverage.xml
+      - name: SonarCloud Scan
+        uses: Sonarsource/sonarcloud-github-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        with:
+          args: >
+            -Dsonar.organization=hungles
+            -Dsonar.projectKey=devsecops-proyect
 
   cd:
     name: CD
