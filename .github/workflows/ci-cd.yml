@@ -35,6 +35,10 @@ jobs:
         uses: Sonarsource/sonarcloud-github-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=hungles_devsecops-proyect
+            -Dsonar.organization=hungles
 
   cd:
     name: CD
