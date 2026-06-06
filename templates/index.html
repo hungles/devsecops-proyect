@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DevSecOps Sample App</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>DevSecOps Sample App</h1>
+      <p>Esta aplicación demuestra una API simple con una interfaz web y un pipeline CI/CD.</p>
+
+      <section>
+        <h2>Estado del servicio</h2>
+        <button id="check-health">Verificar estado</button>
+        <pre id="health-output">Presiona el botón para consultar /api/health</pre>
+      </section>
+
+      <section>
+        <h2>Enviar mensaje</h2>
+        <label for="message-input">Texto:</label>
+        <input id="message-input" type="text" placeholder="Escribe algo" />
+        <button id="send-message">Enviar</button>
+        <pre id="message-output"></pre>
+      </section>
+    </div>
+
+    <script>
+      const healthOutput = document.getElementById('health-output');
+      const messageOutput = document.getElementById('message-output');
+
+      document.getElementById('check-health').addEventListener('click', async () => {
+        const response = await fetch('/api/health');
+        const data = await response.json();
+        healthOutput.textContent = JSON.stringify(data, null, 2);
+      });
+
+      document.getElementById('send-message').addEventListener('click', async () => {
+        const text = document.getElementById('message-input').value;
+        const response = await fetch('/api/message', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text }),
+        });
+        const data = await response.json();
+        messageOutput.textContent = JSON.stringify(data, null, 2);
+      });
+    </script>
+  </body>
+</html>
