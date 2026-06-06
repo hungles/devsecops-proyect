@@ -38,6 +38,7 @@ jobs:
         with:
           args: >
             -Dsonar.projectKey=hungles_devsecops-proyect
+            -Dsonar.organization=hungles
 
   cd:
     name: CD
