@@ -31,20 +31,15 @@ jobs:
         run: |
           pytest --cov=app --cov-report=xml
 
-      - name: Debug Token
-        run: echo "Token length is ${#SONAR_TOKEN}"
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@7006c4492b2e0ee0f816d36501671557c97f5995
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
             -Dsonar.projectKey=hungles_devsecops-proyect
             -Dsonar.organization=hungles
+            -Dsonar.sources=.
 
   cd:
     name: CD
