@@ -38,15 +38,6 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@7006c4492b2e0ee0f816d36501671557c97f5995
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          args: >
-            -Dsonar.host.url=https://sonarcloud.io
-            -Dsonar.projectKey=hungles_devsecops-proyect
-            -Dsonar.organization=hungles
-            -Dsonar.sources=.
-            -Dsonar.exclusions=tests/**
-            -Dsonar.tests=tests
-            -Dsonar.python.coverage.reportPaths=coverage.xml
 
   deploy-dev:
     name: Deploy to dev
