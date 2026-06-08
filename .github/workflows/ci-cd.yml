@@ -41,6 +41,7 @@ jobs:
             -Dsonar.projectKey=hungles_devsecops-proyect
             -Dsonar.organization=hungles
             -Dsonar.sources=.
+            -Dsonar.exclusions=tests/**
             -Dsonar.tests=tests
             -Dsonar.coverageReportPaths=coverage.xml
 
