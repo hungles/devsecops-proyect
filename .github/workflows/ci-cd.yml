@@ -60,5 +60,3 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/devsecops-proyect:latest
 
-
-            
