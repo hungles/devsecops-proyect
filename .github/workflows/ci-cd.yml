@@ -115,7 +115,7 @@ jobs:
     steps:
       - name: Deploy to local Kubernetes cluster
         run: |
-          echo "HOLA ESTO ES DESDE EL LOCAL"
+          kubectl apply -f k8s/deployment.yaml
 
 
 
