@@ -14,7 +14,7 @@ on:
 jobs:
   ci:
     name: CI
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -101,6 +101,17 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/devsecops-proyect:latest
 
+  deploy-local-kubernetes:
+    name: Deploy to Local Kubernetes
+    needs:
+      - deploy-dev
+      - deploy-prod
+    runs-on: self-hosted
+
+    steps:
+      - name: Deploy to local Kubernetes cluster
+        run: |
+          echo "HOLA ESTO ES DESDE EL LOCAL"
 
 
 
