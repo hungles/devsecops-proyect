@@ -106,6 +106,10 @@ jobs:
     needs:
       - deploy-dev
       - deploy-prod
+
+    if: |
+      always() && 
+      (needs.deploy-dev.result == 'success' || needs.deploy-prod.result == 'success')
     runs-on: self-hosted
 
     steps:
