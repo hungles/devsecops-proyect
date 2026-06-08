@@ -35,6 +35,11 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@7006c4492b2e0ee0f816d36501671557c97f5995
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=hungles_devsecops-proyect
+            -Dsonar.organization=hungles
+            -Dsonar.sources=.
 
   cd:
     name: CD
@@ -60,3 +65,6 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/devsecops-proyect:latest
 
+
+
+            
