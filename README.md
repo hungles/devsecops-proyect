@@ -18,6 +18,7 @@ This project showcases a modern containerized microservice architecture with:
 - **Testing**: Automated test suite with coverage tracking
 - **Code Quality**: SonarQube integration for security and quality analysis
 - **CI/CD**: GitHub Actions pipeline for automated workflows
+- **Self-hosted CI/CD**: Local GitHub Actions runner support for deploying to a local Kubernetes cluster
 - **Security**: Non-root containers, resource limits, health probes
 
 ## Quick Start
@@ -59,16 +60,29 @@ docker push YOUR_USERNAME/devsecops-app:latest
 ### 3. Kubernetes Deployment
 
 ```bash
-# Setup Docker Hub credentials
-./k8s/setup-dockerhub.sh YOUR_USERNAME YOUR_TOKEN
-
-# Deploy to cluster
+# For local Kubernetes testing with kind, create and use a kind cluster first
+# See k8s/README.md for full kind setup
 kubectl apply -f k8s/deployment.yaml
 
 # Access application
 kubectl port-forward -n devsecops svc/devsecops-app 8080:80
 # Visit: http://localhost:8080
 ```
+
+## GitHub Actions Runner
+
+This repository includes a self-hosted GitHub Actions runner under `actions-runner/`.
+It is used by the pipeline to deploy to the local Kubernetes cluster using the `deploy-local-kubernetes` job in `.github/workflows/ci-cd.yml`.
+
+To register and start the runner:
+
+```bash
+cd actions-runner
+./config.sh --url https://github.com/<OWNER>/<REPO> --token <RUNNER_TOKEN> --name devsecops-local --labels self-hosted,kubernetes
+./run.sh
+```
+
+See `DOCUMENTATION.md` for full CI/CD and runner configuration details.
 
 ## Testing
 
@@ -79,8 +93,6 @@ pytest
 # Run with coverage
 pytest --cov=.
 
-# Run linting
-flake8
 ```
 
 ## API Endpoints

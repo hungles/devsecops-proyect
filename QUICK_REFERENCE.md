@@ -118,22 +118,6 @@ pytest --cov=. --cov-report=html
 pytest --cov=. --cov-report=term-missing | grep TOTAL
 ```
 
-### Code Quality
-
-```bash
-# Check code style
-flake8
-
-# Check specific file
-flake8 app.py
-
-# Show statistics
-flake8 --statistics
-
-# Count violations
-flake8 --count
-```
-
 ---
 
 ## Docker Commands

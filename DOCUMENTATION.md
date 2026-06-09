@@ -320,6 +320,20 @@ docker pull YOUR_USERNAME/devsecops-app:latest
 - `kubectl` configured to access your cluster
 - Docker image pushed to Docker Hub
 - Docker Hub credentials configured
+- `kind` installed for local development and testing (optional)
+
+#### Local development with kind
+
+For local Kubernetes validation, `kind` is a recommended tool. With `kind`, you can create a local cluster quickly and load the Docker image directly into it before applying the Kubernetes manifests.
+
+Example:
+
+```bash
+kind create cluster --name devsecops
+docker build -t devsecops-app:latest .
+kind load docker-image devsecops-app:latest --name devsecops
+kubectl apply -f k8s/deployment.yaml
+```
 
 ### Setup Process
 
@@ -550,6 +564,22 @@ The project includes automated CI/CD through GitHub Actions (configured in `.git
 - **On Pull Request**: To verify changes
 - **Scheduled**: Nightly builds
 - **Manual**: Via GitHub Actions UI
+
+### Self-hosted GitHub Actions Runner
+
+The `deploy-local-kubernetes` job in `.github/workflows/ci-cd.yml` runs on a self-hosted runner. This repository includes the runner files in the `actions-runner/` directory.
+
+To register and start the runner:
+
+```bash
+cd actions-runner
+./config.sh --url https://github.com/<OWNER>/<REPO> --token <RUNNER_TOKEN> --name devsecops-kind --labels self-hosted,kubernetes
+./run.sh
+```
+
+Use a runner token from GitHub Settings → Actions → Runners → New self-hosted runner.
+
+Once the runner is active, the pipeline can execute the local deploy job against your `kind` cluster.
 
 ### Viewing Workflow Status
 
