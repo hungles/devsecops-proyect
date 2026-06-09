@@ -113,6 +113,10 @@ jobs:
     runs-on: self-hosted
 
     steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Deploy to local Kubernetes cluster
         run: |
           kubectl apply -f k8s/deployment.yaml
